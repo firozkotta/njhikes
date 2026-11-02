@@ -76,6 +76,7 @@ var counts = {};
 
 function keyFor(n){ return "photo-" + n; }
 var MAXPICKS = 3;
+var PAUSED = true;
 function myVotes(){
   try {
     var raw = localStorage.getItem(VOTE_KEY);
@@ -120,6 +121,15 @@ function render(){
     }
     document.getElementById("card-" + p.n).classList.toggle("picked", picked);
   });
+  if (PAUSED) {
+    PHOTOS.forEach(function(p){
+      var b = document.getElementById("btn-" + p.n);
+      b.disabled = true; b.textContent = "Paused";
+    });
+    statusEl.className = "err";
+    statusEl.textContent = "Voting is paused while the results are checked. Votes already cast are saved. Totals shown are not final.";
+    return;
+  }
   if (avail < PHOTOS.length) {
     statusEl.className = "err";
     statusEl.textContent = "Vote counts could not be loaded right now - reload the page to try again. You can still vote.";
@@ -147,6 +157,11 @@ function loadCounts(){
 }
 
 function vote(n){
+  if (PAUSED) {
+    statusEl.className = "err";
+    statusEl.textContent = "Voting is paused while the results are checked. Votes already cast are saved. Totals shown are not final.";
+    return;
+  }
   var mine = myVotes();
   if (mine.indexOf(n) !== -1 || mine.length >= MAXPICKS) return;
   var btn = document.getElementById("btn-" + n);
@@ -170,4 +185,3 @@ loadCounts();
 </script>
 </body>
 </html>
-

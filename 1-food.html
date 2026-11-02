@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Season One Eats - NJ Hikes</title>
+<meta name="description" content="The post-hike breakfasts and meals of NJ Hikes Season One (2026).">
+<style>
+  :root { --bg:#fbf3e6; --card:#fffdf8; --ink:#3d2b1c; --mut:#93755f; --acc:#c2571f; --acc-soft:#f3ddc7; --line:#eeddc8; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); font:16px/1.6 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; }
+  .wrap { max-width:1000px; margin:0 auto; padding:24px 16px 64px; }
+  a { color:var(--acc); text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  nav.site { display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; padding:2px 0 14px; border-bottom:1px solid var(--line); margin-bottom:8px; }
+  nav.site .brand { font-weight:700; color:var(--ink); }
+  nav.site .links a { margin-left:16px; font-size:14px; color:var(--mut); }
+  nav.site .links a:hover { color:var(--acc); }
+  nav.site .links a.active { color:var(--ink); font-weight:700; text-decoration:none; cursor:default; }
+  @media (max-width:560px) { nav.site .links a { margin-left:10px; font-size:13px; } }
+
+  header { text-align:center; padding:34px 8px 22px; }
+  .kicker { text-transform:uppercase; letter-spacing:.18em; font-size:12px; font-weight:700; color:var(--acc); }
+  h1 { font-family:Georgia,'Times New Roman',serif; font-size:clamp(30px,5vw,46px); line-height:1.15; margin:10px 0 12px; }
+  .sub { color:var(--mut); max-width:560px; margin:0 auto; }
+
+  .hero { position:relative; margin:26px 0 10px; border-radius:18px; overflow:hidden; box-shadow:0 12px 34px rgba(61,43,28,.18); }
+  .hero img { width:100%; max-height:560px; object-fit:cover; display:block; }
+  .hero .cap { position:absolute; left:0; right:0; bottom:0; padding:44px 20px 16px; color:#fff; background:linear-gradient(transparent,rgba(30,18,8,.78)); }
+  .hero .cap b { display:block; font-size:17px; }
+  .hero .cap span { font-size:14px; opacity:.85; }
+
+  h2 { font-family:Georgia,'Times New Roman',serif; font-size:24px; margin:40px 0 4px; text-align:center; }
+  .h2sub { text-align:center; color:var(--mut); font-size:14px; margin-bottom:18px; }
+
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden; cursor:zoom-in; transition:transform .15s ease, box-shadow .15s ease; }
+  .card:hover { transform:translateY(-3px); box-shadow:0 10px 24px rgba(61,43,28,.14); }
+  .card img { width:100%; height:230px; object-fit:cover; display:block; }
+  .card .body { padding:12px 14px 14px; }
+  .card .trail { font-weight:700; font-size:15px; }
+  .card .date { color:var(--acc); font-size:13px; font-weight:600; }
+  .card .note { color:var(--mut); font-size:13px; margin-top:2px; }
+  @media (max-width:640px) { .grid { grid-template-columns:1fr 1fr; gap:10px; } .card img { height:170px; } .card .body { padding:10px 11px 12px; } .card .trail { font-size:14px; } }
+
+  figure.season { margin:18px 0 8px; background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden; }
+  figure.season img { width:100%; display:block; }
+  figure.season figcaption { padding:12px 14px; font-size:14px; color:var(--mut); }
+
+  footer { margin-top:40px; color:var(--mut); font-size:13px; text-align:center; }
+
+  #lightbox { position:fixed; inset:0; background:rgba(28,17,8,.92); display:none; align-items:center; justify-content:center; flex-direction:column; padding:24px; z-index:50; }
+  #lightbox.open { display:flex; }
+  #lightbox img { max-width:92vw; max-height:80vh; border-radius:10px; box-shadow:0 18px 50px rgba(0,0,0,.5); }
+  #lightbox .lcap { color:#f6e9d8; text-align:center; margin-top:12px; font-size:15px; }
+  #lightbox .lcap b { display:block; }
+  #lightbox .x { position:absolute; top:14px; right:20px; color:#f6e9d8; font-size:30px; cursor:pointer; background:none; border:0; line-height:1; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="site"><a class="brand" href="./">NJ Hikes</a><span class="links"><a href="./">Hikes</a><a href="food.html" class="active" aria-current="page">Food</a><a href="vote.html">Photo Vote</a></span></nav>
+
+    <header>
+      <p class="kicker">Season One Eats</p>
+      <h1>Come for the hike. Stay for breakfast.</h1>
+      <p class="sub">Nineteen Saturday hikes, June to October 2026 - and after most of them, someone hosted breakfast. This is the season's table, told in the group's own photos. Tap any plate to see it up close.</p>
+    </header>
+
+    <div class="hero">
+      <img src="14-h07-08.jpg" alt="A table covered with dishes at the post-hike breakfast after Mercer County Park">
+      <div class="cap"><b>The full spread at Mercer County Park</b><span>Aug 1 - around the breakfast table</span></div>
+    </div>
+
+    <h2>The season&#39;s breakfasts</h2>
+    <p class="h2sub">The meals after the hikes, in order - tap any photo to enlarge it.</p>
+
+    <div class="grid">
+      <div class="card" data-full="3-h06-03.jpg" data-trail="Middlesex Greenway" data-date="Jul 25" data-note="The first hosted breakfast of the season">
+        <img src="3-h06-03.jpg" loading="lazy" alt="Curry pot and rice dishes at the first hosted breakfast after Middlesex Greenway">
+        <div class="body"><div class="trail">Middlesex Greenway</div><div class="date">Jul 25</div><div class="note">The first hosted breakfast of the season</div></div>
+      </div>
+      <div class="card" data-full="15-h07-09.jpg" data-trail="Mercer County Park" data-date="Aug 1" data-note="Breakfast out on the deck">
+        <img src="15-h07-09.jpg" loading="lazy" alt="The group eating breakfast together on a deck after Mercer County Park">
+        <div class="body"><div class="trail">Mercer County Park</div><div class="date">Aug 1</div><div class="note">Breakfast out on the deck</div></div>
+      </div>
+      <div class="card" data-full="17-h08-02.jpg" data-trail="Ken Lockwood Gorge" data-date="Aug 8" data-note="Everyone up at the buffet">
+        <img src="17-h08-02.jpg" loading="lazy" alt="The group serving themselves at a breakfast buffet after Ken Lockwood Gorge">
+        <div class="body"><div class="trail">Ken Lockwood Gorge</div><div class="date">Aug 8</div><div class="note">Everyone up at the buffet</div></div>
+      </div>
+      <div class="card" data-full="49-h11-04.jpg" data-trail="Jockey Hollow" data-date="Aug 29" data-note="A well-earned plate">
+        <img src="49-h11-04.jpg" loading="lazy" alt="A plated serving of biryani and curry after Jockey Hollow">
+        <div class="body"><div class="trail">Jockey Hollow</div><div class="date">Aug 29</div><div class="note">A well-earned plate</div></div>
+      </div>
+      <div class="card" data-full="50-h11-05.jpg" data-trail="Jockey Hollow" data-date="Aug 29" data-note="Around the table">
+        <img src="50-h11-05.jpg" loading="lazy" alt="The group eating together around a table after Jockey Hollow">
+        <div class="body"><div class="trail">Jockey Hollow</div><div class="date">Aug 29</div><div class="note">Around the table</div></div>
+      </div>
+      <div class="card" data-full="55-h12-03.jpg" data-trail="Griggstown" data-date="Sep 5" data-note="Picnic table breakfast by the canal">
+        <img src="55-h12-03.jpg" loading="lazy" alt="The group eating at an outdoor picnic table after Griggstown">
+        <div class="body"><div class="trail">Griggstown</div><div class="date">Sep 5</div><div class="note">Picnic table breakfast by the canal</div></div>
+      </div>
+      <div class="card" data-full="56-h12-04.jpg" data-trail="Griggstown" data-date="Sep 5" data-note="Porotta and curry at the picnic">
+        <img src="56-h12-04.jpg" loading="lazy" alt="Plates of porotta and curry at the Griggstown picnic">
+        <div class="body"><div class="trail">Griggstown</div><div class="date">Sep 5</div><div class="note">Porotta and curry at the picnic</div></div>
+      </div>
+      <div class="card" data-full="69-h14-04.jpg" data-trail="Johnson Park" data-date="Sep 19" data-note="A table full of snacks and sweets">
+        <img src="69-h14-04.jpg" loading="lazy" alt="A breakfast spread with snacks and sweets after Johnson Park">
+        <div class="body"><div class="trail">Johnson Park</div><div class="date">Sep 19</div><div class="note">A table full of snacks and sweets</div></div>
+      </div>
+      <div class="card" data-full="81-h15-08.jpg" data-trail="Duke Island Park" data-date="Oct 3" data-note="Everyone around one table">
+        <img src="81-h15-08.jpg" loading="lazy" alt="The group eating around a table after Duke Island Park">
+        <div class="body"><div class="trail">Duke Island Park</div><div class="date">Oct 3</div><div class="note">Everyone around one table</div></div>
+      </div>
+      <div class="card" data-full="93-h16-10.jpg" data-trail="Long Branch" data-date="Oct 10" data-note="Sunrise hike, then the long table">
+        <img src="93-h16-10.jpg" loading="lazy" alt="A long table covered with dishes after the Long Branch sunrise hike">
+        <div class="body"><div class="trail">Long Branch</div><div class="date">Oct 10</div><div class="note">Sunrise hike, then the long table</div></div>
+      </div>
+      <div class="card" data-full="98-h17-04.jpg" data-trail="Monmouth Battlefield" data-date="Oct 17" data-note="Trays of biryani and curries">
+        <img src="98-h17-04.jpg" loading="lazy" alt="Buffet trays of biryani and curries after Monmouth Battlefield">
+        <div class="body"><div class="trail">Monmouth Battlefield</div><div class="date">Oct 17</div><div class="note">Trays of biryani and curries</div></div>
+      </div>
+      <div class="card" data-full="113-h18-09.jpg" data-trail="Garret Mountain" data-date="Oct 24" data-note="Breakfast at Asharaf's">
+        <img src="113-h18-09.jpg" loading="lazy" alt="A kitchen counter covered with breakfast trays at Asharaf's after Garret Mountain">
+        <div class="body"><div class="trail">Garret Mountain</div><div class="date">Oct 24</div><div class="note">Breakfast at Asharaf's</div></div>
+      </div>
+      <div class="card" data-full="115-h19-01.jpg" data-trail="Duke Farms" data-date="Oct 31" data-note="The season finale table">
+        <img src="115-h19-01.jpg" loading="lazy" alt="The group at a long table with coffee after Duke Farms">
+        <div class="body"><div class="trail">Duke Farms</div><div class="date">Oct 31</div><div class="note">The season finale table</div></div>
+      </div>
+    </div>
+
+    <h2>The whole season at a glance</h2>
+    <p class="h2sub">One collage, every table.</p>
+    <figure class="season">
+      <img src="food-collage.jpg" loading="lazy" alt="Collage of post-hike breakfasts and meals from NJ Hikes Season One, labeled with dates and trails">
+      <figcaption>Jul 25 Middlesex Greenway - Aug 1 Mercer County Park - Aug 8 Ken Lockwood Gorge - Aug 29 Jockey Hollow - Sep 5 Griggstown (porotta picnic) - Sep 12 Lambertville - Sep 19 Johnson Park - Oct 3 Duke Island - Oct 10 Long Branch - Oct 17 Monmouth - Oct 24 Garret Mountain - Oct 31 Duke Farms.</figcaption>
+    </figure>
+
+    <footer>NJ Hikes - Season One (2026)</footer>
+  </div>
+
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged photo">
+    <button class="x" id="lbx" aria-label="Close">&times;</button>
+    <img id="lbimg" src="" alt="">
+    <div class="lcap"><b id="lbtrail"></b><span id="lbmeta"></span></div>
+  </div>
+
+<script>
+  var lb = document.getElementById('lightbox'),
+      lbimg = document.getElementById('lbimg'),
+      lbtrail = document.getElementById('lbtrail'),
+      lbmeta = document.getElementById('lbmeta');
+  document.querySelectorAll('.card').forEach(function (card) {
+    card.addEventListener('click', function () {
+      lbimg.src = card.dataset.full;
+      lbimg.alt = card.querySelector('img').alt;
+      lbtrail.textContent = card.dataset.trail;
+      lbmeta.textContent = card.dataset.date + (card.dataset.note ? ' - ' + card.dataset.note : '');
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  function closeLb() { lb.classList.remove('open'); lbimg.src = ''; document.body.style.overflow = ''; }
+  document.getElementById('lbx').addEventListener('click', closeLb);
+  lb.addEventListener('click', function (e) { if (e.target === lb) closeLb(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLb(); });
+</script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Favorite Photo Vote - NJ Hikes Season One</title>
+<meta name="description" content="Vote for your favorite NJ Hikes Season One photo.">
+<style>
+  :root { --bg:#0e1512; --card:#17211c; --ink:#e8efe9; --mut:#9fb3a6; --acc:#7fc78f; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--ink); font:16px/1.6 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; }
+  .wrap { max-width:960px; margin:0 auto; padding:24px 16px 64px; }
+  header { text-align:center; padding:20px 0 10px; }
+  h1 { font-size:28px; margin:10px 0 4px; }
+  .sub { color:var(--mut); }
+  a { color:var(--acc); text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; margin-top:24px; }
+  .card { background:var(--card); border-radius:14px; overflow:hidden; display:flex; flex-direction:column; }
+  .card .ph { position:relative; }
+  .card img { width:100%; height:220px; object-fit:cover; display:block; }
+  .badge { position:absolute; top:10px; left:10px; background:rgba(0,0,0,.72); color:#fff; font-weight:700; font-size:15px; border-radius:999px; padding:4px 12px; }
+  .card .body { padding:12px 14px 14px; display:flex; flex-direction:column; gap:8px; flex:1; }
+  .cap { font-size:14px; color:var(--ink); }
+  .cap span { color:var(--mut); }
+  .row { display:flex; align-items:center; justify-content:space-between; margin-top:auto; }
+  button.vote { background:var(--acc); color:#0e1512; border:0; font-weight:700; font-size:14px; border-radius:999px; padding:8px 16px; cursor:pointer; }
+  button.vote:disabled { background:#2a3a2f; color:var(--mut); cursor:default; }
+  .count { color:var(--mut); font-size:14px; }
+  .count b { color:var(--ink); font-size:16px; }
+  .bar { height:6px; background:#0e1512; border-radius:999px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:var(--acc); width:0; transition:width .4s; }
+  #status { text-align:center; color:var(--mut); font-size:14px; margin-top:18px; min-height:22px; }
+  #status.err { color:#e2a1a1; }
+  .picked { outline:2px solid var(--acc); }
+  footer { margin-top:36px; color:var(--mut); font-size:13px; text-align:center; }
+  @media (max-width:560px) { .grid { grid-template-columns:1fr 1fr; gap:10px; } .card img { height:150px; } }
+  nav.site { display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; padding:2px 0 12px; border-bottom:1px solid #223028; margin-bottom:14px; }
+  nav.site .brand { font-weight:700; color:var(--ink); }
+  nav.site .links a { margin-left:16px; font-size:14px; }
+  nav.site .links a.active { color:var(--ink); font-weight:700; text-decoration:none; cursor:default; }
+  @media (max-width:560px) { nav.site .links a { margin-left:10px; font-size:13px; } }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="site"><a class="brand" href="./">NJ Hikes</a><span class="links"><a href="./">Hikes</a><a href="food.html">Food</a><a href="vote.html" class="active" aria-current="page">Photo Vote</a></span></nav>
+    <header>
+      <h1>Favorite Photo - Season One</h1>
+      <p class="sub">Pick up to three favorite shots from the season. Your browser remembers your picks, but you can vote again from another browser or device. Results update live for everyone.</p>
+      <p class="sub"><a href="./">Back to the Season One recap</a></p>
+    </header>
+    <div class="grid" id="grid"></div>
+    <p id="status">Loading votes...</p>
+    <footer>NJ Hikes - Season One (2026). Vote counts are hosted by Abacus (abacus.jasoncameron.dev), a third-party counter service - loading this page and voting sends a request from your browser to that service.</footer>
+  </div>
+<script>
+var PHOTOS = [
+  {n:1,  src:"3-h01-01.jpg",   cap:"Mount Tammany <span>- group at the overlook, Jun 6</span>"},
+  {n:2,  src:"9-h01-07.jpg",   cap:"Mount Tammany <span>- Delaware River gap, Jun 6</span>"},
+  {n:3,  src:"18-h02-06.jpg",  cap:"Sourland Mountain <span>- forest group, Jun 13</span>"},
+  {n:4,  src:"16-h08-01.jpg",  cap:"Ken Lockwood Gorge <span>- trail selfie, Aug 8</span>"},
+  {n:5,  src:"59-h13-03.jpg",  cap:"Lambertville <span>- by the Delaware, Sep 12</span>"},
+  {n:6,  src:"91-h16-08.jpg",  cap:"Long Branch <span>- sunrise on the beach, Oct 10</span>"},
+  {n:7,  src:"106-h18-02.jpg", cap:"Garret Mountain <span>- NYC skyline, Oct 24</span>"},
+  {n:8,  src:"107-h18-03.jpg", cap:"Garret Mountain <span>- fall colors group, Oct 24</span>"},
+  {n:9,  src:"117-h19-03.jpg", cap:"Duke Farms <span>- fall colors on the lake, Oct 31</span>"},
+  {n:10, src:"120-h19-06.jpg", cap:"Duke Farms <span>- group by the lake, Oct 31</span>"}
+];
+var NS = "njhikes-season1-poll";
+var API = "https://abacus.jasoncameron.dev";
+var VOTE_KEY = "njhikes-s1-vote";
+var grid = document.getElementById("grid");
+var statusEl = document.getElementById("status");
+var counts = {};
+
+function keyFor(n){ return "photo-" + n; }
+var MAXPICKS = 3;
+function myVotes(){
+  try {
+    var raw = localStorage.getItem(VOTE_KEY);
+    if (!raw) return [];
+    if (raw.charAt(0) === "[") { var a = JSON.parse(raw); return Array.isArray(a) ? a.filter(function(x){ return typeof x === "number"; }) : []; }
+    var n = parseInt(raw, 10);
+    return n ? [n] : [];
+  } catch(e){ return []; }
+}
+function saveVotes(v){ try { localStorage.setItem(VOTE_KEY, JSON.stringify(v)); } catch(e){} }
+
+PHOTOS.forEach(function(p){
+  var card = document.createElement("div");
+  card.className = "card"; card.id = "card-" + p.n;
+  card.innerHTML =
+    '<div class="ph"><a href="' + p.src + '" target="_blank" rel="noopener"><img src="' + p.src + '" alt="Photo ' + p.n + '" loading="lazy"></a>' +
+    '<div class="badge">#' + p.n + '</div></div>' +
+    '<div class="body"><div class="cap">' + p.cap + '</div>' +
+    '<div class="bar"><i id="bar-' + p.n + '"></i></div>' +
+    '<div class="row"><button class="vote" id="btn-' + p.n + '">Vote</button>' +
+    '<div class="count"><b id="cnt-' + p.n + '">-</b> votes</div></div></div>';
+  grid.appendChild(card);
+  document.getElementById("btn-" + p.n).addEventListener("click", function(){ vote(p.n); });
+});
+
+function render(){
+  var total = 0, avail = 0;
+  PHOTOS.forEach(function(p){ if (typeof counts[p.n] === "number") { total += counts[p.n]; avail++; } });
+  var mine = myVotes();
+  PHOTOS.forEach(function(p){
+    var c = counts[p.n];
+    document.getElementById("cnt-" + p.n).textContent = (typeof c === "number") ? c : "?";
+    document.getElementById("bar-" + p.n).style.width = (total && typeof c === "number") ? Math.round(100 * c / total) + "%" : "0";
+    var btn = document.getElementById("btn-" + p.n);
+    var picked = mine.indexOf(p.n) !== -1;
+    if (picked) {
+      btn.disabled = true;
+      btn.textContent = "Your pick";
+    } else if (mine.length >= MAXPICKS) {
+      btn.disabled = true;
+      btn.textContent = "Vote";
+    }
+    document.getElementById("card-" + p.n).classList.toggle("picked", picked);
+  });
+  if (avail < PHOTOS.length) {
+    statusEl.className = "err";
+    statusEl.textContent = "Vote counts could not be loaded right now - reload the page to try again. You can still vote.";
+  } else if (mine.length >= MAXPICKS) {
+    statusEl.className = "";
+    statusEl.textContent = "Your picks: " + mine.map(function(n){ return "#" + n; }).join(", ") + ". Total votes: " + total + ".";
+  } else if (mine.length > 0) {
+    statusEl.className = "";
+    statusEl.textContent = "Your picks: " + mine.map(function(n){ return "#" + n; }).join(", ") + ". You can pick " + (MAXPICKS - mine.length) + " more. Total votes: " + total + ".";
+  } else {
+    statusEl.className = "";
+    statusEl.textContent = total + " vote" + (total === 1 ? "" : "s") + " so far. Pick up to " + MAXPICKS + " favorites.";
+  }
+}
+
+function loadCounts(){
+  var pending = PHOTOS.length;
+  PHOTOS.forEach(function(p){
+    fetch(API + "/get/" + NS + "/" + keyFor(p.n)).then(function(r){ return r.json(); }).then(function(d){
+      counts[p.n] = (d && typeof d.value === "number") ? d.value : null;
+    }).catch(function(){ counts[p.n] = null; }).finally(function(){
+      if (--pending === 0) render();
+    });
+  });
+}
+
+function vote(n){
+  var mine = myVotes();
+  if (mine.indexOf(n) !== -1 || mine.length >= MAXPICKS) return;
+  var btn = document.getElementById("btn-" + n);
+  btn.disabled = true; btn.textContent = "...";
+  fetch(API + "/hit/" + NS + "/" + keyFor(n)).then(function(r){
+    if (!r.ok) throw new Error("vote failed");
+    return r.json();
+  }).then(function(d){
+    mine.push(n);
+    saveVotes(mine);
+    counts[n] = (d && typeof d.value === "number") ? d.value : (typeof counts[n] === "number" ? counts[n] + 1 : null);
+    render();
+  }).catch(function(){
+    btn.disabled = false; btn.textContent = "Vote";
+    statusEl.className = "err";
+    statusEl.textContent = "Could not save your vote - check your connection and try again.";
+  });
+}
+
+loadCounts();
+</script>
+</body>
+</html>
+
